@@ -1,0 +1,132 @@
+#Which COVID news are covered in US
+question1: 'SELECT
+              distinct us.description,
+              us.source_id,
+              covid.description,
+              covid.source_id
+            FROM
+              us
+              INNER JOIN covid ON us.description = covid.description'
+question1-2: 'SELECT
+              distinct us.description,
+              us2.source_id,
+              covid2.description,
+              covid2.source_id
+            FROM
+              us2
+              INNER JOIN covid2 ON us2.description = covid2.description'
+#What COVID-19 headlines contain trump mentions
+question2: "SELECT
+              distinct us.description,
+              us.source_id,
+              covid.description,
+              covid.source_id
+            FROM
+              us
+            INNER JOIN covid ON us.description = covid.description
+            WHERE covid.description LIKE '%trump%'"
+question2-2: "SELECT
+              distinct us2.description,
+              us2.source_id,
+              covid2.description,
+              covid2.source_id
+            FROM
+              us2
+            INNER JOIN covid2 ON us.description = covid2.description
+            WHERE covid2.description LIKE '%trump%'"
+#Which publishers do Berlin & US have in common
+question3: 'SELECT
+              distinct berlin.source_id,
+              berlin.description,
+              us.source_id,
+              us.description
+            FROM
+              berlin us
+              INNER JOIN us berlin on berlin.source_id = us.source_id'
+question3-2: 'SELECT
+              distinct berlin2.source_id,
+              berlin.description,
+              us2.source_id,
+              us2.description
+            FROM
+              berlin us2
+              INNER JOIN us2 berlin2 on berlin2.source_id = us2.source_id'
+#Settings for querying/files/tables
+news_locations:
+  - filename: berlin
+    query: q=berlin
+    table: 'berlin2'
+    secondary_index: 'source_id'
+    benchmark_query: ''
+    sql_table_create: 'CREATE TABLE IF NOT EXISTS berlin2(
+        source_id TEXT,
+        source_name TEXT,
+        author TEXT,
+        title TEXT,
+        description TEXT,
+        url TEXT,
+        url_to_image TEXT,
+        published_at TIMESTAMP,
+        content TEXT
+        );'
+    fields:
+      - source_id
+      - source_name
+      - author
+      - title
+      - description
+      - url
+      - url_to_image
+      - published_at
+      - content
+  - filename: covid
+    query: q=covid
+    table: 'covid2'
+    secondary_index: 'source_id'
+    sql_table_create: 'CREATE TABLE IF NOT EXISTS covid2(
+        source_id TEXT,
+        source_name TEXT,
+        author TEXT,
+        title TEXT,
+        description TEXT,
+        url TEXT,
+        url_to_image TEXT,
+        published_at TIMESTAMP,
+        content TEXT
+        );'
+    fields:
+      - source_id
+      - source_name
+      - author
+      - title
+      - description
+      - url
+      - url_to_image
+      - published_at
+      - content
+  - filename: us
+    query: country=us
+    table: us2
+    secondary_index: 'source_id'
+    sql_table_create: 'CREATE TABLE IF NOT EXISTS us2(
+        source_id TEXT,
+        source_name TEXT,
+        author TEXT,
+        title TEXT,
+        description TEXT,
+        url TEXT,
+        url_to_image TEXT,
+        published_at TIMESTAMP,
+        content TEXT
+        );'
+    fields:
+      - source_id
+      - source_name
+      - author
+      - title
+      - description
+      - url
+      - url_to_image
+      - published_at
+      - content
+
