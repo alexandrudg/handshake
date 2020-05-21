@@ -1,4 +1,5 @@
 #Which COVID news are covered in US
+news_key: 'bff008e5505d4e3fa3b23d659c40ed6a'
 question1: 'SELECT
               distinct us.description,
               us.source_id,

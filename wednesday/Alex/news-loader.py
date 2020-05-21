@@ -13,7 +13,7 @@ now = datetime.now()
 
 for setting in settings:
   # Request news and encoding
-  url = "https://newsapi.org/v2/top-headlines?" + setting["query"] + "&apiKey=bff008e5505d4e3fa3b23d659c40ed6a"
+  url = "https://newsapi.org/v2/top-headlines?" + setting["query"] + "&apiKey=" + setting["news_key"]
   r = requests.get(url=url)
   text = r.text
   parsed = json.loads(text)
